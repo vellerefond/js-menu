@@ -1,0 +1,27 @@
+{
+  "name": "js-menu",
+  "version": "0.0.0",
+  "description": "A JavaScript/CSS menu implementation",
+  "main": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vellerefond/js-menu"
+  },
+  "author": "Spyridon Alfredos Desyllas",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vellerefond/js-menu/issues"
+  },
+  "homepage": "https://github.com/vellerefond/js-menu",
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-babel": "^5.1.0",
+    "gulp-minify-css": "^1.1.6",
+    "gulp-rename": "^1.2.2",
+    "gulp-serve": "^1.0.0",
+    "gulp-uglify": "^1.2.0"
+  }
+}

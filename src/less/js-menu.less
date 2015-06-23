@@ -1,0 +1,135 @@
+/* REQUIRED */
+
+@transdur: .2s;
+@borrad: 4px;
+@borradtransspec: border-radius @transdur;
+
+.menu-root {
+	display: inline-block;
+	.menu {
+		display: block;
+		> .menu-item { width: auto; }
+	}
+	.menu-item {
+		@opvistransspec: opacity @transdur, visibility @transdur;
+		display: block; position: relative; cursor: default; padding: 0px;
+		> .menu-label { display: block; }
+		> .menu { display: block; position: absolute; width: auto; opacity: 0; visibility: hidden; z-index: -1000000; transition: @opvistransspec; }
+		> .menu.menu-top.menu-right { top: 0px; left: 100%; bottom: initial; right: initial; }
+		> .menu.menu-bottom.menu-right { bottom: 0px; left: 100%; top: initial; right: initial; }
+		> .menu.menu-top.menu-left { top: 0px; right: 100%; bottom: initial; left: initial; }
+		> .menu.menu-bottom.menu-left { bottom: 0px; right: 100%; top: initial; left: initial; }
+		> .menu.menu-under.menu-right { top: 100%; left: 0px; bottom: initial; right: initial; }
+		> .menu.menu-under.menu-left { top: 100%; right: 0px; bottom: initial; left: initial; }
+		> .menu.menu-above.menu-right { bottom: 100%; left: 0px; top: initial; right: initial; }
+		> .menu.menu-above.menu-left { bottom: 100%; right: 0px; top: initial; left: initial; }
+		&.horizontal { display: inline-block; float: left; }
+		&.open > .menu { opacity: 100; visibility: visible; z-index: 1; transition: @opvistransspec; }
+	}
+}
+
+/* BASIC THEMING */
+
+/* -- BORDER RADIUS */
+
+.menu-item {
+	> .menu-label { transition: @borradtransspec; }
+	/* SINGLE MENU ITEM */
+	&:first-child:only-child > .menu-label,
+	&:last-child:only-child > .menu-label,
+	&.horizontal:first-child:only-child > .menu-label,
+	&.horizontal:last-child:only-child > .menu-label { border-radius: @borrad; }
+	&.menu-root:first-child:only-child.open[data-menu-class*='menu-right'] > .menu-label,
+	&.menu-root:last-child:only-child.open[data-menu-class*='menu-right'] > .menu-label { border-radius: @borrad 0px 0px @borrad; }
+	&.menu-root:first-child:only-child.open[data-menu-class*='menu-left'] > .menu-label,
+	&.menu-root:last-child:only-child.open[data-menu-class*='menu-left'] > .menu-label { border-radius: 0px @borrad @borrad 0px; }
+	&.menu-root.horizontal:first-child:only-child.open[data-menu-class*='menu-under'] > .menu-label,
+	&.menu-root.horizontal:last-child:only-child.open[data-menu-class*='menu-under'] > .menu-label { border-radius: @borrad @borrad 0px 0px; }
+	&.menu-root.horizontal:first-child:only-child.open[data-menu-class*='menu-above'] > .menu-label,
+	&.menu-root.horizontal:last-child:only-child.open[data-menu-class*='menu-above'] { border-radius: 0px 0px @borrad @borrad; }
+	/* MULTIPLE MENU ITEMS */
+	&:first-child > .menu-label { border-radius: @borrad @borrad 0px 0px; }
+	&.menu-root:first-child.open[data-menu-class*='menu-right'] > .menu-label { border-radius: @borrad 0px 0px 0px; }
+	&.menu-root:first-child.open[data-menu-class*='menu-left'] > .menu-label { border-radius: 0px @borrad 0px 0px; }
+	&:last-child > .menu-label { border-radius: 0px 0px @borrad @borrad; }
+	&.menu-root:last-child.open[data-menu-class*='menu-right'] > .menu-label { border-radius: 0px 0px 0px @borrad; }
+	&.menu-root:last-child.open[data-menu-class*='menu-left'] > .menu-label { border-radius: 0px 0px @borrad 0px; }
+	&.horizontal:first-child > .menu-label { border-radius: @borrad 0px 0px @borrad; }
+	&.menu-root.horizontal:first-child.open[data-menu-class*='menu-under'] > .menu-label { border-radius: @borrad 0px 0px 0px; }
+	&.menu-root.horizontal:first-child.open[data-menu-class*='menu-above'] > .menu-label { border-radius: 0px 0px 0px @borrad; }
+	&.horizontal:last-child > .menu-label { border-radius: 0px @borrad @borrad 0px; }
+	&.menu-root.horizontal:last-child.open[data-menu-class*='menu-under'] > .menu-label { border-radius: 0px @borrad 0px 0px; }
+	&.menu-root.horizontal:last-child.open[data-menu-class*='menu-above'] > .menu-label { border-radius: 0px 0px @borrad 0px; }
+	> .menu-top {
+		&.menu-right {
+			/* SINGLE MENU ITEM */
+			> .menu-item:first-child:only-child > .menu-label,
+			> .menu-item.horizontal:first-child:only-child > .menu-label { border-radius: 0px @borrad @borrad 0px; }
+			/* MULTIPLE MENU ITEMS */
+			> .menu-item:first-child > .menu-label { border-radius: 0px @borrad 0px 0px; }
+			> .menu-item.horizontal:first-child > .menu-label { border-radius: 0px 0px 0px 0px; }
+		}
+		&.menu-left {
+			/* SINGLE MENU ITEM */
+			> .menu-item:first-child:only-child > .menu-label,
+			> .menu-item.horizontal:last-child:only-child > .menu-label { border-radius: @borrad 0px 0px @borrad; }
+			/* MULTIPLE MENU ITEMS */
+			> .menu-item:first-child > .menu-label { border-radius: @borrad 0px 0px 0px; }
+			> .menu-item.horizontal:last-child > .menu-label { border-radius: 0px 0px 0px 0px; }
+		}
+	}
+	> .menu-bottom {
+		&.menu-right {
+			/* SINGLE MENU ITEM */
+			> .menu-item:last-child:only-child > .menu-label,
+			> .menu-item.horizontal:first-child:only-child > .menu-label { border-radius: 0px @borrad @borrad 0px; }
+			/* MULTIPLE MENU ITEMS */
+			> .menu-item:last-child > .menu-label { border-radius: 0px 0px @borrad 0px; }
+			> .menu-item.horizontal:first-child > .menu-label { border-radius: 0px 0px 0px 0px; }
+		}
+		&.menu-left {
+			/* SINGLE MENU ITEM */
+			> .menu-item:last-child:only-child > .menu-label,
+			> .menu-item.horizontal:last-child:only-child > .menu-label { border-radius: @borrad 0px 0px @borrad; }
+			/* MULTIPLE MENU ITEMS */
+			> .menu-item:last-child > .menu-label { border-radius: 0px 0px 0px @borrad; }
+			> .menu-item.horizontal:last-child > .menu-label { border-radius: 0px 0px 0px 0px; }
+		}
+	}
+	> .menu-under {
+		&.menu-right {
+			/* SINGLE MENU ITEM */
+			> .menu-item:first-child:only-child > .menu-label,
+			> .menu-item.horizontal:first-child:only-child > .menu-label { border-radius: 0px @borrad @borrad @borrad; }
+			/* MULTIPLE MENU ITEMS */
+			> .menu-item:first-child > .menu-label { border-radius: 0px @borrad 0px 0px; }
+			> .menu-item.horizontal:first-child > .menu-label { border-radius: 0px 0px 0px @borrad; }
+		}
+		&.menu-left {
+			/* SINGLE MENU ITEM */
+			> .menu-item:first-child:only-child > .menu-label,
+			> .menu-item.horizontal:last-child:only-child > .menu-label { border-radius: @borrad 0px @borrad @borrad; }
+			/* MULTIPLE MENU ITEMS */
+			> .menu-item:first-child > .menu-label { border-radius: @borrad 0px 0px 0px; }
+			> .menu-item.horizontal:last-child > .menu-label { border-radius: 0px @borrad 0px 0px; }
+		}
+	}
+	> .menu-above {
+		&.menu-right {
+			/* SINGLE MENU ITEM */
+			> .menu-item:last-child:only-child > .menu-label,
+			> .menu-item.horizontal:first-child:only-child > .menu-label { border-radius: @borrad @borrad @borrad 0px; }
+			/* MULTIPLE MENU ITEMS */
+			> .menu-item:last-child > .menu-label { border-radius: 0px 0px @borrad 0px; }
+			> .menu-item.horizontal:first-child > .menu-label { border-radius: @borrad 0px 0px 0px; }
+		}
+		&.menu-left {
+			/* SINGLE MENU ITEM */
+			> .menu-item:last-child:only-child > .menu-label,
+			> .menu-item.horizontal:last-child:only-child > .menu-label { border-radius: @borrad @borrad 0px @borrad; }
+			/* MULTIPLE MENU ITEMS */
+			> .menu-item:last-child > .menu-label { border-radius: 0px 0px 0px @borrad; }
+			> .menu-item.horizontal:last-child > .menu-label { border-radius: 0px @borrad 0px 0px; }
+		}
+	}
+}

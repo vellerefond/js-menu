@@ -1,0 +1,19 @@
+{
+  "name": "js-menu",
+  "version": "0.0.0",
+  "homepage": "https://github.com/vellerefond/js-menu",
+  "description": "A JavaScript/CSS menu implementation",
+  "moduleType": [
+    "globals"
+  ],
+  "authors": [
+    "Spyridon Alfredos Desyllas <vellerefond@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "**/demo.html"
+  ]
+}
