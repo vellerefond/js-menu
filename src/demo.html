@@ -15,26 +15,26 @@
 				bottom: 15px;
 			}
 			/* -- STRUCTURE */
-			.menu-root .menu-item > .menu-label {
+			.vj-menu-root .vj-menu-item > .vj-menu-label {
 				padding: 8px 15px 8px 15px;
 			}
-			.menu-root .menu-item.menu-root > .menu-label {
+			.vj-menu-root .vj-menu-item.vj-menu-root > .vj-menu-label {
 				width: 25px;
 			}
 			/* -- VISUAL */
-			.menu-item > .menu-label {
+			.vj-menu-item > .vj-menu-label {
 				background: #242424;
 				color: #ffffff;
 				height: 23px;
 			}
-			.menu-item > .menu-label:hover {
+			.vj-menu-item > .vj-menu-label:hover {
 				background: #808080;
 				cursor: pointer;
 			}
-			.menu-item > .menu-label > .period.root {
+			.vj-menu-item > .vj-menu-label > .period.root {
 				text-align: center;
 			}
-			.menu-item > .menu-label > .icon {
+			.vj-menu-item > .vj-menu-label > .icon {
 				position: relative;
 				display: block;
 				background: url('https://d29b8zub2nxnya.cloudfront.net/Static/Images/sprites/icons.png?635599474708885535') no-repeat top left rgba(0, 0, 0, 0);
@@ -44,80 +44,80 @@
 				padding-left: 8px;
 				background-origin: content-box;
 			}
-			.menu-item > .menu-label > .icon.candlesticks {
+			.vj-menu-item > .vj-menu-label > .icon.candlesticks {
 				background-position: -529px -599px;
 			}
-			.menu-item > .menu-label > .icon.candlesticks.active {
+			.vj-menu-item > .vj-menu-label > .icon.candlesticks.active {
 				background-position: -529px -241px;
 			}
-			.menu-item > .menu-label > .icon.ohlc {
+			.vj-menu-item > .vj-menu-label > .icon.ohlc {
 				background-position: -1835px -1501px;
 			}
-			.menu-item > .menu-label > .icon.ohlc.active {
+			.vj-menu-item > .vj-menu-label > .icon.ohlc.active {
 				background-position: -1835px -1143px;
 			}
-			.menu-item > .menu-label > .icon.lines {
+			.vj-menu-item > .vj-menu-label > .icon.lines {
 				background-position: -1679px -948px;
 			}
-			.menu-item > .menu-label > .icon.lines.active {
+			.vj-menu-item > .vj-menu-label > .icon.lines.active {
 				background-position: -1679px -593px;
 			}
 		</style>
-		<script type='text/javascript' src='/js/js-menu.js'></script>
+		<script type='text/javascript' src='/js/vj-menu.js'></script>
 	</head>
 	<body>
 		<input type="text" id="out" onkeydown="return false;" size="50" onclick="this.value = null;"/>
-		<div data-option-event="demo-select" data-enter-event="demo1-enter" class="demo demo1 menu-root">
-			<div class="menu">
-				<div class="menu-item menu-root horizontal">
-					<div class="menu-label period root">M1</div>
-					<div class="menu menu-under menu-right">
-						<div data-option-data="period:M1" class="menu-item">
-							<div class="menu-label period period-M1">M1</div>
+		<div data-option-event="demo-select" data-enter-event="demo1-enter" class="demo demo1 vj-menu-root">
+			<div class="vj-menu">
+				<div class="vj-menu-item vj-menu-root vj-horizontal">
+					<div class="vj-menu-label period root">M1</div>
+					<div class="vj-menu vj-menu-under vj-menu-right">
+						<div data-option-data="period:M1" class="vj-menu-item">
+							<div class="vj-menu-label period period-M1">M1</div>
 						</div>
-						<div data-option-data="period:M5" class="menu-item">
-							<div class="menu-label period period-M5">M5</div>
+						<div data-option-data="period:M5" class="vj-menu-item">
+							<div class="vj-menu-label period period-M5">M5</div>
 						</div>
-						<div data-option-data="period:M15" class="menu-item">
-							<div class="menu-label period period-M15">M15</div>
+						<div data-option-data="period:M15" class="vj-menu-item">
+							<div class="vj-menu-label period period-M15">M15</div>
 						</div>
-						<div data-option-data="period:M30" class="menu-item">
-							<div class="menu-label period period-M30">M30</div>
+						<div data-option-data="period:M30" class="vj-menu-item">
+							<div class="vj-menu-label period period-M30">M30</div>
 						</div>
-						<div data-option-data="period:H1" class="menu-item">
-							<div class="menu-label period period-H1">H1</div>
+						<div data-option-data="period:H1" class="vj-menu-item">
+							<div class="vj-menu-label period period-H1">H1</div>
 						</div>
-						<div data-option-data="period:M4" class="menu-item">
-							<div class="menu-label period period-M4">H4</div>
+						<div data-option-data="period:M4" class="vj-menu-item">
+							<div class="vj-menu-label period period-M4">H4</div>
 						</div>
-						<div data-option-data="period:D1" class="menu-item">
-							<div class="menu-label period period-D1">D1</div>
+						<div data-option-data="period:D1" class="vj-menu-item">
+							<div class="vj-menu-label period period-D1">D1</div>
 						</div>
-						<div data-option-data="period:W1" class="menu-item">
-							<div class="menu-label period period-W1">W1</div>
+						<div data-option-data="period:W1" class="vj-menu-item">
+							<div class="vj-menu-label period period-W1">W1</div>
 						</div>
-						<div data-option-data="period:MN" class="menu-item">
-							<div class="menu-label period period-MN">MN</div>
+						<div data-option-data="period:MN" class="vj-menu-item">
+							<div class="vj-menu-label period period-MN">MN</div>
 						</div>
 					</div>
 				</div>
-				<div class="menu-item menu-root horizontal">
-					<div class="menu-label">
+				<div class="vj-menu-item vj-menu-root vj-horizontal">
+					<div class="vj-menu-label">
 						<div class="icon candlesticks active"></div>
 					</div>
-					<div class="menu menu-under menu-right">
-						<div data-option-data="type:candlesticks" class="menu-item">
-							<div class="menu-label">
+					<div class="vj-menu vj-menu-under vj-menu-right">
+						<div data-option-data="type:candlesticks" class="vj-menu-item">
+							<div class="vj-menu-label">
 								<div class="icon candlesticks active"></div>
 							</div>
 						</div>
-						<div data-option-data="type:ohlc" class="menu-item">
-							<div class="menu-label">
+						<div data-option-data="type:ohlc" class="vj-menu-item">
+							<div class="vj-menu-label">
 								<div class="icon ohlc"></div>
 							</div>
 						</div>
-						<div data-option-data="type:lines" class="menu-item">
-							<div class="menu-label">
+						<div data-option-data="type:lines" class="vj-menu-item">
+							<div class="vj-menu-label">
 								<div class="icon lines"></div>
 							</div>
 						</div>
@@ -125,57 +125,57 @@
 				</div>
 			</div>
 		</div>
-		<div data-option-event="demo-select" data-enter-event="demo2-enter" class="demo menu-root">
-			<div class="menu">
-				<div class="menu-item menu-root horizontal">
-					<div class="menu-label period root">M1</div>
-					<div class="menu menu-under menu-right">
-						<div data-option-data="period:M1" class="menu-item">
-							<div class="menu-label period period-M1">M1</div>
+		<div data-option-event="demo-select" data-enter-event="demo2-enter" class="demo vj-menu-root">
+			<div class="vj-menu">
+				<div class="vj-menu-item vj-menu-root vj-horizontal">
+					<div class="vj-menu-label period root">M1</div>
+					<div class="vj-menu vj-menu-under vj-menu-right">
+						<div data-option-data="period:M1" class="vj-menu-item">
+							<div class="vj-menu-label period period-M1">M1</div>
 						</div>
-						<div data-option-data="period:M5" class="menu-item">
-							<div class="menu-label period period-M5">M5</div>
+						<div data-option-data="period:M5" class="vj-menu-item">
+							<div class="vj-menu-label period period-M5">M5</div>
 						</div>
-						<div data-option-data="period:M15" class="menu-item">
-							<div class="menu-label period period-M15">M15</div>
+						<div data-option-data="period:M15" class="vj-menu-item">
+							<div class="vj-menu-label period period-M15">M15</div>
 						</div>
-						<div data-option-data="period:M30" class="menu-item">
-							<div class="menu-label period period-M30">M30</div>
+						<div data-option-data="period:M30" class="vj-menu-item">
+							<div class="vj-menu-label period period-M30">M30</div>
 						</div>
-						<div data-option-data="period:H1" class="menu-item">
-							<div class="menu-label period period-H1">H1</div>
+						<div data-option-data="period:H1" class="vj-menu-item">
+							<div class="vj-menu-label period period-H1">H1</div>
 						</div>
-						<div data-option-data="period:M4" class="menu-item">
-							<div class="menu-label period period-M4">H4</div>
+						<div data-option-data="period:M4" class="vj-menu-item">
+							<div class="vj-menu-label period period-M4">H4</div>
 						</div>
-						<div data-option-data="period:D1" class="menu-item">
-							<div class="menu-label period period-D1">D1</div>
+						<div data-option-data="period:D1" class="vj-menu-item">
+							<div class="vj-menu-label period period-D1">D1</div>
 						</div>
-						<div data-option-data="period:W1" class="menu-item">
-							<div class="menu-label period period-W1">W1</div>
+						<div data-option-data="period:W1" class="vj-menu-item">
+							<div class="vj-menu-label period period-W1">W1</div>
 						</div>
-						<div data-option-data="period:MN" class="menu-item">
-							<div class="menu-label period period-MN">MN</div>
+						<div data-option-data="period:MN" class="vj-menu-item">
+							<div class="vj-menu-label period period-MN">MN</div>
 						</div>
 					</div>
 				</div>
-				<div class="menu-item menu-root horizontal">
-					<div class="menu-label">
+				<div class="vj-menu-item vj-menu-root vj-horizontal">
+					<div class="vj-menu-label">
 						<div class="icon candlesticks active"></div>
 					</div>
-					<div class="menu menu-under menu-right">
-						<div data-option-data="type:candlesticks" class="menu-item">
-							<div class="menu-label">
+					<div class="vj-menu vj-menu-under vj-menu-right">
+						<div data-option-data="type:candlesticks" class="vj-menu-item">
+							<div class="vj-menu-label">
 								<div class="icon candlesticks active"></div>
 							</div>
 						</div>
-						<div data-option-data="type:ohlc" class="menu-item">
-							<div class="menu-label">
+						<div data-option-data="type:ohlc" class="vj-menu-item">
+							<div class="vj-menu-label">
 								<div class="icon ohlc"></div>
 							</div>
 						</div>
-						<div data-option-data="type:lines" class="menu-item">
-							<div class="menu-label">
+						<div data-option-data="type:lines" class="vj-menu-item">
+							<div class="vj-menu-label">
 								<div class="icon lines"></div>
 							</div>
 						</div>
@@ -195,11 +195,11 @@
 			var $target = $(e.optionInfo.target),
 			$parent = $target.parent().parent();
 			if (e.optionInfo.data.startsWith("period:")) {
-			$parent.find("> .menu-label").text($target.find("> .period").text());
+			$parent.find("> .vj-menu-label").text($target.find("> .period").text());
 			} else if (e.optionInfo.data.startsWith("type:")) {
 			$parent.find(".icon").removeClass("active");
 			$target.find(".icon").addClass("active");
-			$parent.find("> .menu-label .icon").attr("class", $target.find(".icon").attr("class"));
+			$parent.find("> .vj-menu-label .icon").attr("class", $target.find(".icon").attr("class"));
 			}
 
 			document.getElementById("out").value = "option: " + JSON.stringify(e.optionInfo.data);

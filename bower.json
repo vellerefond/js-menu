@@ -1,7 +1,7 @@
 {
-  "name": "js-menu",
+  "name": "vj-menu",
   "version": "0.0.0",
-  "homepage": "https://github.com/vellerefond/js-menu",
+  "homepage": "https://github.com/vellerefond/vj-menu",
   "description": "A JavaScript/CSS menu implementation",
   "moduleType": [
     "globals"

@@ -1,5 +1,5 @@
 {
-  "name": "js-menu",
+  "name": "vj-menu",
   "version": "0.0.0",
   "description": "A JavaScript/CSS menu implementation",
   "main": "",
@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/vellerefond/js-menu"
+    "url": "https://github.com/vellerefond/vj-menu"
   },
   "author": "Spyridon Alfredos Desyllas",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/vellerefond/js-menu/issues"
+    "url": "https://github.com/vellerefond/vj-menu/issues"
   },
-  "homepage": "https://github.com/vellerefond/js-menu",
+  "homepage": "https://github.com/vellerefond/vj-menu",
   "devDependencies": {
     "gulp": "^3.9.0",
     "gulp-babel": "^5.1.0",

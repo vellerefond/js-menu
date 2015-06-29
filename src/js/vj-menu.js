@@ -12,54 +12,6 @@
 		return new Set(classSpec.trim().split(/\s+/));
 	}
 
-	function hasClass(classSpec) {
-		if (!this || !this.getAttribute)
-			return false;
-		let classAttr = this.getAttribute('class');
-		if (!classAttr)
-			return false;
-		let
-			classSet = getClassSet(classAttr),
-			classConditions = classSpec.trim().split(/\s+/);
-		classConditions.forEach((value, index) => classConditions[index] = value.split(/\.+/));
-		for (let classCondition of classConditions) {
-			let atLeastOne = true;
-			for (let classConditionPart of classCondition) {
-				if (classConditionPart[0] === '!'
-							? classSet.has(classConditionPart.substring(1).replace(/\\!/g, '!'))
-							: !classSet.has(classConditionPart.replace(/\\!/g, '!')))
-					atLeastOne = false;
-			}
-			if (atLeastOne)
-				return true;
-		}
-		return false;
-	}
-
-	function addClass(klass) {
-		if (!this || !this.getAttribute)
-			return this;
-		this.setAttribute('class', getClassSpec(getClassSet(this.getAttribute('class')).add(klass)));
-		return this;
-	}
-
-	function removeClass(klass) {
-		if (!this || !this.getAttribute)
-			return this;
-		let classAttr = this.getAttribute('class');
-		if (!classAttr)
-			return this;
-		let classSet = getClassSet(classAttr);
-		if (!classSet.delete(klass))
-			return this;
-		if (classSet.size === 0) {
-			this.removeAttribute('class');
-			return this;
-		}
-		this.setAttribute('class', getClassSpec(classSet));
-		return this;
-	}
-
 	function getWindowMetrics() {
 		return {
 			w: window.innerWidth, h: window.innerHeight,
@@ -101,10 +53,10 @@
 	function getMenuAndMenuRoots(menuItem) {
 		let menuRootsContainer, menuRoots = [];
 		for (let i in menuItem.childNodes)
-			if (hasClass.call(menuItem.childNodes[i], 'menu')) {
+			if (menuItem.childNodes[i].classList.contains('vj-menu')) {
 				menuRootsContainer = menuItem.childNodes[i];
 				for (let j in menuRootsContainer.childNodes)
-					if (hasClass.call(menuRootsContainer.childNodes[j], 'menu-root'))
+					if (menuRootsContainer.childNodes[j]classList.contains('vj-menu-root'))
 						menuRoots.push(menuRootsContainer.childNodes[j]);
 				break;
 			}
@@ -133,7 +85,7 @@
 	function setMenuRootEvents({
 		menuRootElement,
 		openEvent = 'mouseenter', closeEvent = 'mouseleave', optionEvent = 'click', globalCloseEvent = 'click',
-		openClass = 'open',
+		openClass = 'vj-open',
 		closeOnOptionEvent = true, allowMenuRootOption = false,
 		openCloseDelayTimeout = 50,
 		singleOpen = true
@@ -141,11 +93,11 @@
 		if (!menuRootElement && !(menuRootElement = this))
 			return;
 
-		let menuRootPhases = { openingOrOpened: 1, closingOrClosed: 2 }, openDelayTimeoutId, closeDelayTimeoutId, globalCloseOnOpenEvent = 'global-js-menu-close';
+		let menuRootPhases = { openingOrOpened: 1, closingOrClosed: 2 }, openDelayTimeoutId, closeDelayTimeoutId, globalCloseOnOpenEvent = 'global-vj-menu-close';
 
 		let closeRecursiveHandler = (root) => {
-			removeClass.call(root, openClass);
-			root.removeAttribute('data-menu-class');
+			root.classList.remove(openClass);
+			root.removeAttribute('data-vj-menu-class');
 			root.menuRootPhase = menuRootPhases.closingOrClosed;
 			let { menu, menuRoots } = getMenuAndMenuRoots(root);
 			if (!menu || !menuRoots || !menuRoots.length)
@@ -154,7 +106,7 @@
 				closeRecursiveHandler(menuRoot);
 		};
 
-		if (hasClass.call(menuRootElement, 'menu-root.!menu-item')) {
+		if (menuRootElement.classList.contains('vj-menu-root') && !menuRootElement.classList.contains('vj-menu-item')) {
 			if (openEvent === 'mouseover')
 				openEvent = 'mouseenter';
 
@@ -168,21 +120,21 @@
 					let receiver = document.elementFromPoint(e.clientX, e.clientY);
 					if (!receiver)
 						return false;
-					while (!hasClass.call(receiver, 'menu-root menu-item'))
+					while (!receiver.classList.contains('vj-menu-root') && !receiver.classList.contains('vj-menu-item'))
 						receiver = receiver.parentNode;
-					if (!hasClass.call(receiver, 'menu-item') ||
-							(!allowMenuRootOption && hasClass.call(receiver, 'menu-root')) ||
-							((optionEvent === openEvent || optionEvent === closeEvent) && hasClass.call(receiver, 'menu-root')))
+					if (!receiver.classList.contains('vj-menu-item') ||
+							(!allowMenuRootOption && receiver.classList.contains('vj-menu-root')) ||
+							((optionEvent === openEvent || optionEvent === closeEvent) && receiver.classList.contains('vj-menu-root')))
 						return false;
 					e.stopPropagation();
 					let
-						optionEventDataAttr = receiver.getAttribute('data-option-event') || menuRootElement.getAttribute('data-option-event') || 'menu-option',
-						optionDataDataAttr = receiver.getAttribute('data-option-data');
+						optionEventDataAttr = receiver.getAttribute('data-vj-option-event') || menuRootElement.getAttribute('data-vj-option-event') || 'vj-menu-option',
+						optionDataDataAttr = receiver.getAttribute('data-vj-option-data');
 					if (!optionEventDataAttr)
 						return false;
 					if (closeOnOptionEvent) {
-						let closeTarget = hasClass.call(receiver, 'menu-root') ? receiver : receiver.parentNode.parentNode;
-						while (hasClass.call(closeTarget, 'menu-root.menu-item')) {
+						let closeTarget = receiver.classList.contains('vj-menu-root') ? receiver : receiver.parentNode.parentNode;
+						while (closeTarget.classList.contains('vj-menu-root') && closeTarget.classList.contains('vj-menu-item')) {
 							let
 								dispatchedCloseEvent = document.createEvent('CustomEvent'),
 								closeTargetMetrics = getElementMetrics(closeTarget);
@@ -234,7 +186,7 @@
 			if (globalCloseEvent)
 				setEventCallbackForElement(document, globalCloseEvent, 'global-close', closeRootHandler, false);
 
-			let enterEventAttr = menuRootElement.getAttribute('data-enter-event');
+			let enterEventAttr = menuRootElement.getAttribute('data-vj-enter-event');
 
 			if (enterEventAttr) {
 				let menuEnterHandler = (e) => {
@@ -273,11 +225,11 @@
 			if (!receiver)
 				return false;
 
-			while (!hasClass.call(receiver, 'menu-root menu-item'))
+			while (!receiver.classList.contains('vj-menu-root') && !receiver.classList.contains('vj-menu-item'))
 				receiver = receiver.parentNode;
 
 			if ((openEvent === closeEvent || openEvent === optionEvent) &&
-					(!hasClass.call(receiver, 'menu-root') || receiver.menuRootPhase === menuRootPhases.openingOrOpened))
+					(!receiver.classList.contains('vj-menu-root') || receiver.menuRootPhase === menuRootPhases.openingOrOpened))
 				return false;
 
 			e.stopPropagation();
@@ -307,9 +259,9 @@
 						let eventReceiver = document.elementFromPoint(e.clientX, e.clientY);
 						if (!eventReceiver)
 							return false;
-						while (eventReceiver && !hasClass.call(eventReceiver, 'menu-root menu-item'))
+						while (eventReceiver && !eventReceiver.classList.contains('vj-menu-root') && !eventReceiver.classList.contains('vj-menu-item'))
 							eventReceiver = eventReceiver.parentNode;
-						if (!eventReceiver || !hasClass.call(eventReceiver, 'menu-root'))
+						if (!eventReceiver || !eventReceiver.classList.contains('vj-menu-root'))
 							return false;
 					}
 					e.stopPropagation();
@@ -333,7 +285,7 @@
 
 			if (openEvent === closeEvent) {
 				let parentMenuRoot = receiver.parentNode.parentNode;
-				if (hasClass.call(parentMenuRoot, 'menu-root')) {
+				if (parentMenuRoot.classList.contains('vj-menu-root')) {
 					let { menu, menuRoots } = getMenuAndMenuRoots(parentMenuRoot);
 					for (let menuRoot of menuRoots)
 						if (menuRoot !== receiver)
@@ -354,21 +306,21 @@
 
 			let
 				classAttr = getClassSpec(getClassSet(menu.getAttribute('class'))),
-				classDataAttr = menu.getAttribute('data-class'),
+				classDataAttr = menu.getAttribute('data-vj-class'),
 				dirSpec = getClassSet(classDataAttr || classAttr),
-				forceDirClass = dirSpec.has('force-dir-class'),
+				forceDirClass = dirSpec.has('vj-force-dir-class'),
 				windowMetrics = getWindowMetrics(),
 				menuMetrics,
 				dirClass;
 
 			if (forceDirClass) {
-				addClass.call(receiver, 'open');
-				receiver.setAttribute('data-menu-class', classAttr);
+				receiver.classList.add('vj-open');
+				receiver.setAttribute('data-vj-menu-class', classAttr);
 				return false;
 			}
 
 			if (classDataAttr) {
-				menu.removeAttribute('data-class');
+				menu.removeAttribute('data-vj-class');
 				menu.setAttribute('class', classDataAttr);
 				classAttr = classDataAttr;
 				dirSpec = getClassSet(classDataAttr);
@@ -383,39 +335,39 @@
 
 				let verticalDiff, horizontalDiff;
 
-				if (dirSpec.has('menu-under') || dirSpec.has('menu-top')) {
+				if (dirSpec.has('vj-menu-under') || dirSpec.has('vj-menu-top')) {
 					verticalDiff = Math.max(menuMetrics.vyh, windowMetrics.vyh) - Math.min(menuMetrics.vyh, windowMetrics.vyh);
 					if (menuMetrics.vyh > windowMetrics.vyh && (metricsFixPhase === 1 || verticalDiff > verticalDiffBest)) {
 						verticalDiffBest = verticalDiff;
-						if (dirSpec.delete('menu-under'))
-							dirSpec.add('menu-above');
-						else if (dirSpec.delete('menu-top'))
-							dirSpec.add('menu-bottom');
+						if (dirSpec.delete('vj-menu-under'))
+							dirSpec.add('vj-menu-above');
+						else if (dirSpec.delete('vj-menu-top'))
+							dirSpec.add('vj-menu-bottom');
 					}
-				} else if (dirSpec.has('menu-above') || dirSpec.has('menu-bottom')) {
+				} else if (dirSpec.has('vj-menu-above') || dirSpec.has('vj-menu-bottom')) {
 					verticalDiff = Math.max(menuMetrics.vy, windowMetrics.vy) - Math.min(menuMetrics.vy, windowMetrics.vy);
 					if (menuMetrics.vy < windowMetrics.vy && (metricsFixPhase === 1 || verticalDiff > verticalDiffBest)) {
 						verticalDiffBest = verticalDiff;
-						if (dirSpec.delete('menu-above'))
-							dirSpec.add('menu-under');
-						else if (dirSpec.delete('menu-bottom'))
-							dirSpec.add('menu-top');
+						if (dirSpec.delete('vj-menu-above'))
+							dirSpec.add('vj-menu-under');
+						else if (dirSpec.delete('vj-menu-bottom'))
+							dirSpec.add('vj-menu-top');
 					}
 				}
 
-				if (dirSpec.has('menu-right')) {
+				if (dirSpec.has('vj-menu-right')) {
 					horizontalDiff = Math.max(menuMetrics.vxw, windowMetrics.vxw) - Math.min(menuMetrics.vxw, windowMetrics.vxw);
 					if (menuMetrics.vxw > windowMetrics.vxw && (metricsFixPhase === 1 || horizontalDiff > horizontalDiffBest)) {
 						horizontalDiffBest = horizontalDiff;
-						dirSpec.delete('menu-right');
-						dirSpec.add('menu-left');
+						dirSpec.delete('vj-menu-right');
+						dirSpec.add('vj-menu-left');
 					}
-				} else if (dirSpec.has('menu-left')) {
+				} else if (dirSpec.has('vj-menu-left')) {
 					horizontalDiff = Math.max(menuMetrics.vx, windowMetrics.vx) - Math.min(menuMetrics.vx, windowMetrics.vx);
 					if (menuMetrics.vx < windowMetrics.vx && (metricsFixPhase === 1 || horizontalDiff > horizontalDiffBest)) {
 						horizontalDiffBest = horizontalDiff;
-						dirSpec.delete('menu-left');
-						dirSpec.add('menu-right');
+						dirSpec.delete('vj-menu-left');
+						dirSpec.add('vj-menu-right');
 					}
 				}
 
@@ -423,11 +375,11 @@
 
 				if (dirClass !== classAttr) {
 					if (metricsFixPhase === 1) {
-						menu.setAttribute('data-class', classAttr);
+						menu.setAttribute('data-vj-class', classAttr);
 						classAttr = dirClass;
 					} else {
 						/* HERE WE REVERT BACK TO THE ORIGINALS BECAUSE THE FIX FAILED */
-						menu.removeAttribute('data-class');
+						menu.removeAttribute('data-vj-class');
 					}
 
 					/* IF metricsFixPhase === 1 THIS IS A CHANGED CLASS ELSE THIS IS THE ORIGINAL CLASS */
@@ -435,9 +387,9 @@
 				}
 			}
 
-			addClass.call(receiver, 'open');
+			receiver.classList.add('vj-open');
 
-			receiver.setAttribute('data-menu-class', dirClass);
+			receiver.setAttribute('data-vj-menu-class', dirClass);
 
 			return false;
 		};
